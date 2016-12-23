@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "663179337586",
+    "firebase_url": "https://fcmpush-8f14c.firebaseio.com",
+    "project_id": "fcmpush-8f14c",
+    "storage_bucket": "fcmpush-8f14c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663179337586:android:b9adbdb80e3600de",
+        "android_client_info": {
+          "package_name": "com.example.dell.fcmpush"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663179337586-05bbnp2hv5616qoit26i74dppt6o5f21.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDWXIPfQVc384nK9a0ebnLGmQMZl1SAh8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

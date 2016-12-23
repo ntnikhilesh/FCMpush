@@ -3,11 +3,14 @@ package com.example.dell.fcmpush;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -20,6 +23,7 @@ import java.net.URLEncoder;
  */
 
 public class BackgroundTask extends AsyncTask<String,Void,String> {
+    AlertDialog alertDialog;
 
     Context ctx;
     BackgroundTask(Context ctx)
@@ -31,7 +35,9 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();
+        alertDialog=new AlertDialog.Builder(ctx).create();
+        alertDialog.setTitle("Login information....");
+
     }
 
     @Override
@@ -70,6 +76,47 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
                 e.printStackTrace();
             }
         }
+        else if (method.equals("login"))
+        {
+            String user_name=params[1];
+            String user_pass=params[2];
+
+            try {
+                URL url=new URL(login_url);
+                HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream OS= httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(OS,"UTF-8"));
+                String data=URLEncoder.encode("user_name","UTF-8")+"="+URLEncoder.encode(user_name,"UTF-8")+"&"+
+                        URLEncoder.encode("user_pass","UTF-8")+"="+URLEncoder.encode(user_pass,"UTF-8");
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                OS.close();
+                InputStream IS=httpURLConnection.getInputStream();
+                BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(IS,"ISO-8859-1"));
+                String response="";
+                String line="";
+                while ((line=bufferedReader.readLine())!=null)
+                {
+                    response+=line;
+                }
+                bufferedReader.close();
+                IS.close();
+                httpURLConnection.disconnect();
+
+                return response;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
 
         return null;
     }
@@ -81,7 +128,14 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Toast.makeText(ctx,"result = "+result,Toast.LENGTH_LONG).show();
+        if (result.equals("Registration success....")) {
+            Toast.makeText(ctx, "result = " + result, Toast.LENGTH_LONG).show();
+        }
+        else {
+            //Toast.makeText(ctx, "result = " + result, Toast.LENGTH_LONG).show();
+               alertDialog.setMessage(result);
+                alertDialog.show();
+        }
 
     }
 }

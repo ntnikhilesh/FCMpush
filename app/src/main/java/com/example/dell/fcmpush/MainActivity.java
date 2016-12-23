@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent=new Intent(MainActivity.this,RegisterActivity.class);
+        Intent intent=new Intent(MainActivity.this,LoginActivity.class);
         startActivity(intent);
 
         // FirebaseMessaging.getInstance().subscribeToTopic("test");
