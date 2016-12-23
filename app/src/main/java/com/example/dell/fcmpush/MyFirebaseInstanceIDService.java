@@ -33,6 +33,13 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private void registerToken(String token) {
 
+        String method="register1";
+        BackgroundTask backgroundTask=new BackgroundTask(this);
+        backgroundTask.execute(method,token);
+
+
+        /*
+
         Log.d("nt2you r here",token);
         OkHttpClient client=new OkHttpClient();
         RequestBody body=new FormBody.Builder()
