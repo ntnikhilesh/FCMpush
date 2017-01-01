@@ -22,11 +22,13 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     @Override
     public void onTokenRefresh() {
-        String token=FirebaseInstanceId.getInstance().getToken();
-        Log.d("nttoken",token);
+        String recent_token=FirebaseInstanceId.getInstance().getToken();
+        Log.d("nttoken1","-"+recent_token);
 //        Toast.makeText(this,token,Toast.LENGTH_LONG).show();
 
-       registerToken(token);
+/*
+        //Store token in MySQL db using Async task
+       registerToken(recent_token); */
 
 
     }
